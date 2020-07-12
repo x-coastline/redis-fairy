@@ -17,6 +17,7 @@
 		<java.version>1.8</java.version>
 		<maven.source.version>3.0.1</maven.source.version>
 		<guava.version>29.0-jre</guava.version>
+		<docker.version>3.0.14</docker.version>
 	</properties>
 
 	<modules>
