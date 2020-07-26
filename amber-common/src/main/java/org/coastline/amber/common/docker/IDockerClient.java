@@ -6,5 +6,4 @@ package org.coastline.amber.common.docker;
  */
 public interface IDockerClient {
 
-
 }

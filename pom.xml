@@ -22,6 +22,8 @@
 
 	<modules>
 		<module>amber-common</module>
+		<module>amber-redis-client</module>
+		<module>amber-docker-agent</module>
 	</modules>
 
 	<dependencyManagement>
