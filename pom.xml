@@ -6,6 +6,12 @@
 	<groupId>org.coastline.amber</groupId>
 	<artifactId>amber-parent</artifactId>
 	<version>1.0.0-RELEASE</version>
+	<modules>
+		<module>amber-common</module>
+		<module>amber-redis-client</module>
+		<module>amber-agent</module>
+		<module>amber-server</module>
+	</modules>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -16,22 +22,32 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<maven.source.version>3.0.1</maven.source.version>
+		<!--redis client-->
+		<jedis.version>3.3.0</jedis.version>
 		<guava.version>29.0-jre</guava.version>
-		<docker.version>3.0.14</docker.version>
+		<spring-boot.version>2.3.3.RELEASE</spring-boot.version>
 	</properties>
-
-	<modules>
-		<module>amber-common</module>
-		<module>amber-redis-client</module>
-		<module>amber-docker-agent</module>
-	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.coastline.amber</groupId>
-				<artifactId>amber-common</artifactId>
-				<version>${project.version}</version>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
