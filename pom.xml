@@ -6,16 +6,17 @@
 	<groupId>org.coastline.amber</groupId>
 	<artifactId>amber-parent</artifactId>
 	<version>1.0.0-RELEASE</version>
-	<modules>
-		<module>amber-common</module>
-		<module>amber-redis-client</module>
-		<module>amber-agent</module>
-		<module>amber-server</module>
-	</modules>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
 	<description>Amber is a platform for redis</description>
+
+	<modules>
+		<module>amber-common</module>
+		<module>amber-agent</module>
+		<module>amber-server</module>
+		<module>amber-redis-client</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
