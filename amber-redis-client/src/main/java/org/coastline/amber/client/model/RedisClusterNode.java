@@ -2,9 +2,7 @@ package org.coastline.amber.client.model;
 
 
 import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.Jedis;
 
-import java.util.BitSet;
 import java.util.Set;
 
 /**
@@ -39,17 +37,16 @@ public class RedisClusterNode {
 
     private boolean connected;
 
-    private BitSet slots;
+    private int slotNumber;
 
     private String slotRange;
 
-    /**
-     * Redis Cluster node flags.
-     */
-    public enum NodeFlag {
-        NOFLAGS, MYSELF, SLAVE, REPLICA, MASTER, EVENTUAL_FAIL, FAIL, HANDSHAKE, NOADDR;
-    }
+    public RedisClusterNode(){}
 
+    public RedisClusterNode(String nodeId, HostAndPort node) {
+        this.nodeId = nodeId;
+        this.node = node;
+    }
 
     public String getNodeId() {
         return nodeId;
@@ -131,12 +128,12 @@ public class RedisClusterNode {
         this.connected = connected;
     }
 
-    public BitSet getSlots() {
-        return slots;
+    public int getSlotNumber() {
+        return slotNumber;
     }
 
-    public void setSlots(BitSet slots) {
-        this.slots = slots;
+    public void setSlotNumber(int slotNumber) {
+        this.slotNumber = slotNumber;
     }
 
     public String getSlotRange() {
@@ -146,4 +143,29 @@ public class RedisClusterNode {
     public void setSlotRange(String slotRange) {
         this.slotRange = slotRange;
     }
+
+    /**
+     * Redis Cluster node flags.
+     */
+    public enum NodeFlag {
+
+        NOFLAGS("noflags"),
+        MYSELF("myself"),
+        SLAVE("slave"),
+        REPLICA("replica"),
+        MASTER("master"),
+        EVENTUAL_FAIL("eventual_fail"),
+        FAIL("fail"),
+        HANDSHAKE("handshake"),
+        NOADDR("noaddr"),
+        UNKOWN("unknow");
+
+        private String value;
+
+        NodeFlag(String value) {
+            this.value = value;
+        }
+
+    }
+
 }

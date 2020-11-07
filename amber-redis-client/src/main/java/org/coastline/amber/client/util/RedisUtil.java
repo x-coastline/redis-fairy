@@ -3,6 +3,7 @@ package org.coastline.amber.client.util;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Strings;
 import org.coastline.amber.common.StringUtil;
+import redis.clients.jedis.HostAndPort;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -20,23 +21,33 @@ public class RedisUtil {
 
     private RedisUtil() {}
 
-    public static Map<String, String> parseInfoToMap(String info) throws IOException {
+    public static Map<String, String> parseInfoToMap(String info)  {
         Map<String, String> infoMap = new LinkedHashMap<>();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(info.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8));
         String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            String[] keyValue = StringUtil.splitByColon(line);
-            if (keyValue.length < 2) {
-                continue;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] keyValue = StringUtil.splitByColon(line);
+                if (keyValue.length < 2) {
+                    continue;
+                }
+                String key = keyValue[0];
+                String value = keyValue[1];
+                if (Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(value)) {
+                    continue;
+                }
+                infoMap.put(key, value);
             }
-            String key = keyValue[0];
-            String value = keyValue[1];
-            if (Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(value)) {
-                continue;
-            }
-            infoMap.put(key, value);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return infoMap;
+    }
+
+    public static HostAndPort strToHostAndPort(String hostAndPortStr) {
+        String[] hostPort = StringUtil.splitByColon(hostAndPortStr);
+        return new HostAndPort(hostPort[0], Integer.parseInt(hostPort[1]));
     }
 
     public static void main(String[] args) throws IOException {
@@ -60,5 +71,7 @@ public class RedisUtil {
             System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key));
         });
     }
+
+
     
 }

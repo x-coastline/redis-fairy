@@ -3,9 +3,7 @@ package org.coastline.amber.client.model;
 import com.google.common.collect.Sets;
 import redis.clients.jedis.HostAndPort;
 
-import java.time.Duration;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jay.H.Zou
@@ -16,11 +14,7 @@ public class RedisURI {
     /**
      * Default timeout: 60 sec
      */
-    public static final long DEFAULT_TIMEOUT = 60;
-
-    public static final TimeUnit DEFAULT_TIMEOUT_UNIT = TimeUnit.SECONDS;
-
-    public static final Duration DEFAULT_TIMEOUT_DURATION = Duration.ofSeconds(DEFAULT_TIMEOUT);
+    public static final int DEFAULT_TIMEOUT = 5;
 
     /**
      * default client name
@@ -31,13 +25,19 @@ public class RedisURI {
 
     private int database;
 
-    private String clientName;
+    private String clientName = DEFAULT_CLIENT_NAME;
 
     private String sentinelMasterId;
 
     private String password;
 
+    private int timeout = DEFAULT_TIMEOUT;
+
     private RedisURI() {
+    }
+
+    public RedisURI(String host, int port) {
+        this(new HostAndPort(host, port), null);
     }
 
     public RedisURI(String host, int port, String password) {
@@ -49,13 +49,13 @@ public class RedisURI {
     }
 
     public RedisURI(Set<HostAndPort> hostAndPortSet, String password) {
-        this(hostAndPortSet, 0, DEFAULT_CLIENT_NAME, null, password);
+        this(hostAndPortSet, 0, null, password);
     }
 
-    public RedisURI(Set<HostAndPort> hostAndPortSet, int database, String clientName, String sentinelMasterId, String password) {
+    public RedisURI(Set<HostAndPort> hostAndPortSet, int database, String sentinelMasterId, String password) {
         this.hostAndPortSet = hostAndPortSet;
         this.database = database;
-        this.clientName = clientName;
+        this.clientName = DEFAULT_CLIENT_NAME;
         this.sentinelMasterId = sentinelMasterId;
         this.password = password;
     }
@@ -100,6 +100,14 @@ public class RedisURI {
         this.password = password;
     }
 
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
     @Override
     public String toString() {
         return "RedisURI{" +
@@ -108,6 +116,7 @@ public class RedisURI {
                 ", clientName='" + clientName + '\'' +
                 ", sentinelMasterId='" + sentinelMasterId + '\'' +
                 ", password='" + password + '\'' +
+                ", timeout=" + timeout +
                 '}';
     }
 }
