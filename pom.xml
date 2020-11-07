@@ -27,7 +27,16 @@
 		<!--redis client-->
 		<jedis.version>3.3.0</jedis.version>
 		<guava.version>29.0-jre</guava.version>
+		<fastjson.version>1.2.47</fastjson.version>
+
+		<!--spring-->
 		<spring-boot.version>2.3.3.RELEASE</spring-boot.version>
+		<shiro-springboot.version>1.6.0</shiro-springboot.version>
+		<page-helper.version>1.3.0</page-helper.version>
+
+		<!--mysql-->
+		<mysql-connector.version>8.0.17</mysql-connector.version>
+		<mybatis-spring.version>2.1.3</mybatis-spring.version>
 	</properties>
 
 	<dependencyManagement>
@@ -46,17 +55,61 @@
 			</dependency>
 
 			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
 				<version>${jedis.version}</version>
 			</dependency>
 
+			<!-- mysql connector -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-connector.version}</version>
+			</dependency>
+
+			<!-- spring boot -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-parent</artifactId>
 				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring-boot-web-starter</artifactId>
+				<version>${shiro-springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${page-helper.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

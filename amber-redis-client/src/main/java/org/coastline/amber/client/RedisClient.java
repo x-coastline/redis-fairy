@@ -205,8 +205,7 @@ public class RedisClient implements IRedisClient {
             redisSlowLog.setTimestamp(new Timestamp(slowlog.getTimeStamp() * 1000));
             List<String> args = slowlog.getArgs();
             redisSlowLog.setType(args.get(0));
-            List<String> commands = args.subList(1, args.size());
-            redisSlowLog.setCommand(Joiner.on(" ").skipNulls().join(commands));
+            redisSlowLog.setCommand(Joiner.on(" ").skipNulls().join(args));
             slowLogList.add(redisSlowLog);
         }
         return slowLogList;
@@ -359,7 +358,9 @@ public class RedisClient implements IRedisClient {
 
     @Override
     public void close() {
-
+        if (jedis != null) {
+            jedis.close();
+        }
     }
 
     private Object mapToObject(Map<String, String> map, Class<?> clazz) throws Exception {

@@ -17,7 +17,7 @@ public class RedisClientTest {
         RedisURI redisURI = new RedisURI("192.168.0.112", 9000);
         RedisClient redisClient = new RedisClient(redisURI);
         List<RedisSlowLog> slowLogList = redisClient.slowLog();
-        System.out.println(slowLogList);
+        slowLogList.forEach(System.out::println);
         redisClient.close();
     }
 

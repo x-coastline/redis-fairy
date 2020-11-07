@@ -14,7 +14,7 @@ public class RedisURI {
     /**
      * Default timeout: 60 sec
      */
-    public static final int DEFAULT_TIMEOUT = 5;
+    public static final int DEFAULT_TIMEOUT = 100;
 
     /**
      * default client name

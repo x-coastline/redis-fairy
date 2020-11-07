@@ -12,7 +12,7 @@ import java.util.Set;
  * @author Jay.H.Zou
  * @date 2020/10/14
  */
-public class RedisClusterNode {
+public class RedisClusterNode extends RedisNode {
 
     private String nodeId;
 
