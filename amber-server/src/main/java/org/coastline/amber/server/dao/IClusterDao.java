@@ -80,7 +80,7 @@ public interface IClusterDao {
             "tag varchar(50) DEFAULT NULL," +
             "environment varchar(50) NOT NULL," +
             "import_type varchar(50) NOT NULL," +
-            "info varchar(255) NOT NULL," +
+            "info varchar(255) DEFAULT NULL," +
             "create_time datetime(0) NOT NULL," +
             "update_time datetime(0) NOT NULL," +
             "PRIMARY KEY (cluster_id)," +

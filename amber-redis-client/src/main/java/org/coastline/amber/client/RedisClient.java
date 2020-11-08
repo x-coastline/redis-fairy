@@ -1,5 +1,6 @@
 package org.coastline.amber.client;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
@@ -363,24 +364,12 @@ public class RedisClient implements IRedisClient {
         }
     }
 
-    private Object mapToObject(Map<String, String> map, Class<?> clazz) throws Exception {
+    private Object mapToObject(Map<String, String> map, Class<?> clazz) {
         Map<String, String> transformMap = new HashMap<>(map.size());
         map.forEach((key, value) -> {
             transformMap.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value);
         });
-        Object obj = clazz.newInstance();
-        Field[] fields = obj.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            int modifiers = field.getModifiers();
-            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers)) {
-                continue;
-            }
-            field.setAccessible(true);
-            String name = field.getName();
-            if (transformMap.containsKey(name)) {
-                field.set(obj, transformMap.get(name));
-            }
-        }
-        return obj;
+        String json = JSONObject.toJSONString(transformMap);
+        return JSONObject.parseObject(json, clazz);
     }
 }

@@ -1,0 +1,20 @@
+@import "~@alifd/next/variables.scss";
+
+.infoWrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  margin-bottom: 0;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: -20px;
+  padding: 0 20px 20px;
+  background-color: #FFFFFF;
+}
+
+// 更改 memu 样式，为了与 drawer 更贴合
+
+.operationWrapper {
+  margin: -20px;
+  border: none;
+}

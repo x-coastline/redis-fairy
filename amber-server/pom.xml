@@ -26,10 +26,10 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.github.pagehelper</groupId>

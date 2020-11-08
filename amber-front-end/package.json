@@ -1,0 +1,56 @@
+{
+  "name": "amber",
+  "version": "0.1.0",
+  "description": "Amber",
+  "dependencies": {
+    "@alifd/next": "^1.21.0-beta.4",
+    "@alifd/theme-design-pro": "^0.6.2",
+    "@antv/data-set": "^0.10.2",
+    "@icedesign/img": "^1.0.4",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "ahooks": "^2.0.0",
+    "bizcharts": "^4.0.14",
+    "lodash.debounce": "^4.0.8",
+    "moment": "^2.24.0",
+    "prop-types": "^15.5.8",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-intl": "^2.8.0",
+    "react-sortablejs": "^2.0.11",
+    "universal-cookie": "^4.0.4"
+  },
+  "devDependencies": {
+    "@ice/spec": "^1.0.0",
+    "build-plugin-fusion": "^0.1.0",
+    "build-plugin-ice-auth": "^1.7.1",
+    "build-plugin-moment-locales": "^0.1.0",
+    "eslint": "^6.0.1",
+    "ice.js": "^1.0.0",
+    "stylelint": "^13.2.0"
+  },
+  "scripts": {
+    "start": "icejs start --mode local",
+    "build": "icejs build --mode prod",
+    "lint": "npm run eslint && npm run stylelint",
+    "eslint": "eslint --cache --ext .js,.jsx ./",
+    "stylelint": "stylelint ./**/*.scss",
+    "design": "icejs build --design"
+  },
+  "ideMode": {
+    "name": "ice-react"
+  },
+  "iceworks": {
+    "type": "react",
+    "adapter": "adapter-react-v3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alibaba-fusion/materials/tree/master/scaffolds/fusion-design-pro-js"
+  },
+  "private": true,
+  "originTemplate": "@alifd/fusion-design-pro-js"
+}

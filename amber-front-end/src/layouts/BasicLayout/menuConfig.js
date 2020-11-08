@@ -1,0 +1,3 @@
+const headerMenuConfig = [];
+
+export { headerMenuConfig };

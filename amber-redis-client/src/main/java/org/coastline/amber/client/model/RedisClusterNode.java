@@ -14,13 +14,7 @@ import java.util.Set;
  */
 public class RedisClusterNode extends RedisNode {
 
-    private String nodeId;
-
-    private HostAndPort node;
-
     private Set<NodeFlag> flags;
-
-    private RedisRole role;
 
     /**
      * 当前节点是副本是谁
@@ -44,24 +38,7 @@ public class RedisClusterNode extends RedisNode {
     public RedisClusterNode(){}
 
     public RedisClusterNode(String nodeId, HostAndPort node) {
-        this.nodeId = nodeId;
-        this.node = node;
-    }
-
-    public String getNodeId() {
-        return nodeId;
-    }
-
-    public void setNodeId(String nodeId) {
-        this.nodeId = nodeId;
-    }
-
-    public HostAndPort getNode() {
-        return node;
-    }
-
-    public void setNode(HostAndPort node) {
-        this.node = node;
+        super(nodeId, node);
     }
 
     public Set<NodeFlag> getFlags() {
@@ -70,14 +47,6 @@ public class RedisClusterNode extends RedisNode {
 
     public void setFlags(Set<NodeFlag> flags) {
         this.flags = flags;
-    }
-
-    public RedisRole getRole() {
-        return role;
-    }
-
-    public void setRole(RedisRole role) {
-        this.role = role;
     }
 
     public String getReplicateOf() {

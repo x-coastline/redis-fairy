@@ -1,7 +1,6 @@
 package org.coastline.amber.client.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * server: Redis服务器的一般信息
@@ -19,6 +18,8 @@ import java.util.Map;
  * @date 2020/10/8
  */
 public class RedisInfo {
+
+    public static final String SERVER = "server";
 
     /*======================================= server =======================================*/
     private String redisVersion;

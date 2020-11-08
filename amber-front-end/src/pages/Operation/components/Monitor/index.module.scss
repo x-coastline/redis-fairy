@@ -1,0 +1,21 @@
+@import "~@alifd/next/variables.scss";
+
+.conditionWrapper {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.customFooter {
+  padding: 10px 0 10px 10px;
+  border-top: 1px solid #f7f5f5;
+}
+
+.refreshIcon {
+  cursor: pointer;
+}
+
+.refreshIcon:hover {
+  color: #000000;
+}

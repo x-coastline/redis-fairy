@@ -22,7 +22,7 @@ public class ClusterInfo {
     private long clusterStatsMessagesPongReceived;
     private long clusterStatsMessagesReceived;
 
-    enum ClusterState {
+    public enum ClusterState {
         OK,
 
         FAIL,

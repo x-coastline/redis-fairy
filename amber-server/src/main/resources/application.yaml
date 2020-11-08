@@ -1,4 +1,4 @@
-server.port: 8184
+server.port: 8101
 server.compression.enabled: true
 server.compression.mime-types:
   - image/png
@@ -67,7 +67,7 @@ amber.installation.docker.docker-host: tcp://%s:2375
 #==============================================================================
 # other
 #==============================================================================
-amber.database: xxx
+# amber.database: xxx
 #==============================================================================
 # spring configuration
 #==============================================================================
