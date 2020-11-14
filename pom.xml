@@ -23,7 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<maven.source.version>3.0.1</maven.source.version>
-		<junit.test>4.12</junit.test>
+		<junit.test>4.13.1</junit.test>
 		<!--redis client-->
 		<jedis.version>3.3.0</jedis.version>
 		<guava.version>29.0-jre</guava.version>
