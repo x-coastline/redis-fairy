@@ -17,8 +17,6 @@ import redis.clients.jedis.util.Slowlog;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.*;
@@ -82,7 +80,7 @@ public class RedisClient implements IRedisClient {
     @Override
     public RedisInfo infoModel() {
         try {
-            Object redisInfo = mapToObject(info(), RedisInfo.class);
+            Object redisInfo = infoToObject(info());
             return (RedisInfo) redisInfo;
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,7 +96,7 @@ public class RedisClient implements IRedisClient {
     @Override
     public RedisInfo infoModel(String section) {
         try {
-            Object redisInfo = mapToObject(info(section), RedisInfo.class);
+            Object redisInfo = infoToObject(info(section));
             return (RedisInfo) redisInfo;
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,7 +112,7 @@ public class RedisClient implements IRedisClient {
     @Override
     public ClusterInfo clusterInfoModel() {
         try {
-            Object redisInfo = mapToObject(clusterInfo(), ClusterInfo.class);
+            Object redisInfo = clusterInfoToObject(clusterInfo());
             return (ClusterInfo) redisInfo;
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +140,7 @@ public class RedisClient implements IRedisClient {
                 String configEpoch = item[6];
                 String linkState = item[7];
                 String hostAndPortStr = StringUtil.splitByAite(ipPort)[0];
-                HostAndPort hostAndPort = RedisUtil.strToHostAndPort(hostAndPortStr);
+                HostAndPort hostAndPort = strToHostAndPort(hostAndPortStr);
                 RedisClusterNode redisNode = new RedisClusterNode(nodeId, hostAndPort);
                 String[] flagArr = StringUtil.splitByCommas(flagsStr);
                 Set<RedisClusterNode.NodeFlag> flags = new HashSet<>(flagArr.length);
@@ -364,12 +362,26 @@ public class RedisClient implements IRedisClient {
         }
     }
 
-    private Object mapToObject(Map<String, String> map, Class<?> clazz) {
-        Map<String, String> transformMap = new HashMap<>(map.size());
+    private static HostAndPort strToHostAndPort(String hostAndPortStr) {
+        String[] hostPort = StringUtil.splitByColon(hostAndPortStr);
+        return new HostAndPort(hostPort[0], Integer.parseInt(hostPort[1]));
+    }
+
+    private RedisInfo infoToObject(Map<String, String> map) {
+        JSONObject jsonObject = new JSONObject();
         map.forEach((key, value) -> {
-            transformMap.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value);
+            // TODO: 类型转换处理
+            // TODO: keyspace, command operation,
+            jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value);
         });
-        String json = JSONObject.toJSONString(transformMap);
-        return JSONObject.parseObject(json, clazz);
+        return JSONObject.parseObject(jsonObject.toJSONString(), RedisInfo.class);
+    }
+
+    private Object clusterInfoToObject(Map<String, String> map) {
+        JSONObject jsonObject = new JSONObject();
+        map.forEach((key, value) -> {
+            jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value);
+        });
+        return JSONObject.parseObject(jsonObject.toJSONString(), ClusterInfo.class);
     }
 }

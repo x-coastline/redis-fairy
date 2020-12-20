@@ -45,12 +45,8 @@ public class RedisUtil {
         return infoMap;
     }
 
-    public static HostAndPort strToHostAndPort(String hostAndPortStr) {
-        String[] hostPort = StringUtil.splitByColon(hostAndPortStr);
-        return new HostAndPort(hostPort[0], Integer.parseInt(hostPort[1]));
-    }
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         String info = "cluster_state:ok\n" +
                 "cluster_slots_assigned:16384\n" +
                 "cluster_slots_ok:16384\n" +
@@ -70,7 +66,7 @@ public class RedisUtil {
         infoToMap.forEach((key, value) -> {
             System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key));
         });
-    }
+    }*/
 
 
     
