@@ -3,19 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.coastline.amber</groupId>
-	<artifactId>amber-parent</artifactId>
+	<groupId>org.coastline.fairy</groupId>
+	<artifactId>fairy-parent</artifactId>
 	<version>1.0.0-RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
-	<description>Amber is a platform for redis</description>
+	<description>fairy is a platform for redis</description>
 
 	<modules>
-		<module>amber-common</module>
-		<module>amber-agent</module>
-		<module>amber-server</module>
-		<module>amber-redis-client</module>
+		<module>fairy-common</module>
+		<module>fairy-agent</module>
+		<module>fairy-server</module>
+		<module>fairy-redis-client</module>
 	</modules>
 
 	<properties>

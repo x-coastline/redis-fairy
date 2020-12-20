@@ -1,0 +1,73 @@
+package org.coastline.fairy.server.dao;
+
+import org.apache.ibatis.annotations.*;
+import org.coastline.fairy.server.entity.RedisNodeEntity;
+
+import java.util.List;
+
+/**
+ * Manage redis nodes
+ *
+ * @author Jay.H.Zou
+ * @date 2020/11/8
+ */
+@Mapper
+public interface IRedisNodeDao {
+
+    @Select("SELECT * FROM redis_node WHERE cluster_id = #{clusterId}")
+    List<RedisNodeEntity> selectRedisNodeListByCluster(Integer clusterId);
+
+    @Select("SELECT * FROM redis_node WHERE redis_node_id = #{redisNodeId}")
+    RedisNodeEntity selectRedisNodeById(Integer redisNodeId);
+
+    @Select("SELECT * FROM redis_node WHERE cluster_id = #{clusterId} AND host = #{host} AND port = #{port}")
+    RedisNodeEntity existRedisNode(RedisNodeEntity redisNodeEntity);
+
+    @Insert("<script>" +
+            "INSERT INTO redis_node (group_id, cluster_id, node_id, master_id, host, port, node_role, " +
+            "flags, link_state, in_cluster, run_status, slot_range, slot_number, container_id, container_name, insert_time, update_time) " +
+            "VALUES " +
+            "<foreach item='redisNode' collection='redisNodeList' separator=','>" +
+            "(#{redisNode.groupId}, #{redisNode.clusterId}, #{redisNode.nodeId}, #{redisNode.masterId}, #{redisNode.host}, #{redisNode.port}, #{redisNode.nodeRole}, " +
+            "#{redisNode.flags}, #{redisNode.linkState}, #{redisNode.inCluster}, #{redisNode.runStatus}, #{redisNode.slotRange}, #{redisNode.slotNumber}, #{redisNode.containerId}, #{redisNode.containerName}, NOW(), NOW())" +
+            "</foreach>" +
+            "</script>")
+    int insertRedisNodeList(@Param("redisNodeList") List<RedisNodeEntity> redisNodeEntityList);
+
+    @Update("UPDATE redis_node SET node_id = #{nodeId}, master_id = #{masterId}, node_role = #{nodeRole}, flags = #{flags}, " +
+            "link_state = #{linkState}, in_cluster = #{inCluster}, run_status = #{runStatus}, " +
+            "slot_range = #{slotRange}, update_time = NOW() " +
+            "WHERE cluster_id = #{clusterId} AND host = #{host} AND port = #{port}")
+    int updateRedisNode(RedisNodeEntity redisNodeEntity);
+
+    @Delete("DELETE FROM redis_node WHERE cluster_id = #{clusterId}")
+    int deleteNodeByClusterId(Integer clusterId);
+
+    @Delete("DELETE FROM redis_node WHERE redis_node_id = #{redisNodeId}")
+    int deleteNodeById(Integer redisNodeId);
+
+    @Select("CREATE TABLE IF NOT EXISTS redis_node ( " +
+            "`redis_node_id` integer(4) NOT NULL AUTO_INCREMENT, " +
+            "`group_id` integer(4) NOT NULL, " +
+            "`cluster_id` integer(4) NOT NULL, " +
+            "`node_id` varchar(50) DEFAULT NULL, " +
+            "`master_id` varchar(50) DEFAULT NULL, " +
+            "`host` varchar(50) NOT NULL, " +
+            "`port` integer(4) NOT NULL, " +
+            "`node_role` varchar(50) DEFAULT NULL, " +
+            "`flags` varchar(50) DEFAULT NULL, " +
+            "`link_state` varchar(50) DEFAULT NULL, " +
+            "`in_cluster` tinyint(1) DEFAULT 0, " +
+            "`run_status` tinyint(1) DEFAULT 0, " +
+            "`slot_range` varchar(50) DEFAULT NULL, " +
+            "`slot_number` integer(4) DEFAULT NULL, " +
+            "`container_id` varchar(255) DEFAULT NULL, " +
+            "`container_name` varchar(60) DEFAULT NULL, " +
+            "`insert_time` datetime(0) NOT NULL, " +
+            "`update_time` datetime(0) NOT NULL, " +
+            "PRIMARY KEY (redis_node_id), " +
+            "INDEX `multiple_query`(`cluster_id`, `host`, `port`) " +
+            ") ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;")
+    void createRedisNodeTable();
+
+}
