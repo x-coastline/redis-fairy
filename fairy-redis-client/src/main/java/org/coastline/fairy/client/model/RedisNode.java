@@ -3,6 +3,8 @@ package org.coastline.fairy.client.model;
 import redis.clients.jedis.HostAndPort;
 
 /**
+ * base class for redis node
+ *
  * @author Jay.H.Zou
  * @date 2020/11/3
  */

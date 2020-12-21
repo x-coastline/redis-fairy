@@ -1,6 +1,8 @@
 package org.coastline.fairy.client.model;
 
 /**
+ * cluster info
+ *
  * @author Jay.H.Zou
  * @date 2020/10/8
  */

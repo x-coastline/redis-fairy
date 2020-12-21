@@ -35,36 +35,9 @@ public class RedisUtil {
                 }
                 infoMap.put(key, value);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
-
         return infoMap;
     }
 
-
-    /*public static void main(String[] args) throws IOException {
-        String info = "cluster_state:ok\n" +
-                "cluster_slots_assigned:16384\n" +
-                "cluster_slots_ok:16384\n" +
-                "cluster_slots_pfail:0\n" +
-                "cluster_slots_fail:0\n" +
-                "cluster_known_nodes:6\n" +
-                "cluster_size:3\n" +
-                "cluster_current_epoch:5\n" +
-                "cluster_my_epoch:4\n" +
-                "cluster_stats_messages_ping_sent:176233\n" +
-                "cluster_stats_messages_pong_sent:175307\n" +
-                "cluster_stats_messages_sent:351540\n" +
-                "cluster_stats_messages_ping_received:175307\n" +
-                "cluster_stats_messages_pong_received:176232\n" +
-                "cluster_stats_messages_received:351539\n";
-        Map<String, String> infoToMap = parseInfoToMap(info);
-        infoToMap.forEach((key, value) -> {
-            System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key));
-        });
-    }*/
-
-
-    
 }

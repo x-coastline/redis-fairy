@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.coastline.fairy</groupId>
             <artifactId>fairy-common</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>

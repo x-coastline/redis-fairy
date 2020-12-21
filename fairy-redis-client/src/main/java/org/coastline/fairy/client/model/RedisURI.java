@@ -19,7 +19,7 @@ public class RedisURI {
     /**
      * default client name
      */
-    public static String DEFAULT_CLIENT_NAME = "amber";
+    public static String DEFAULT_CLIENT_NAME = "fairy";
 
     private Set<HostAndPort> hostAndPortSet;
 
@@ -108,15 +108,4 @@ public class RedisURI {
         this.timeout = timeout;
     }
 
-    @Override
-    public String toString() {
-        return "RedisURI{" +
-                "hostAndPortSet=" + hostAndPortSet +
-                ", database=" + database +
-                ", clientName='" + clientName + '\'' +
-                ", sentinelMasterId='" + sentinelMasterId + '\'' +
-                ", password='" + password + '\'' +
-                ", timeout=" + timeout +
-                '}';
-    }
 }

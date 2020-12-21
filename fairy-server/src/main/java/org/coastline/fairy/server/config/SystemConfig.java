@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**
- * amber server 启动相关配置文件
+ * fairy server 启动相关配置文件
  * TODO: 检查必要配置的正确性
  *
  * @author Jay.H.Zou
@@ -24,12 +24,12 @@ public class SystemConfig {
 
     private int port;
 
-    @Value("${amber.monitor.data-keep-days:0}")
+    @Value("${fairy.monitor.data-keep-days:0}")
     private int monitorDataKeepDays;
 
     private boolean needCleanNodeInfo;
 
-    @Value("${amber.alert.data-keep-days:0}")
+    @Value("${fairy.alert.data-keep-days:0}")
     private int alertDataKeepDays;
     
 
@@ -37,7 +37,7 @@ public class SystemConfig {
     public void init() {
         port = Integer.parseInt(Objects.requireNonNull(environment.getProperty("server.port")));
         if (getMonitorDataKeepDays() < 0) {
-            throw new ConfigurationException("amber.monitor.data-keep-days must not be less than 0.");
+            throw new ConfigurationException("fairy.monitor.data-keep-days must not be less than 0.");
         }
         needCleanNodeInfo = getMonitorDataKeepDays() > 0;
     }

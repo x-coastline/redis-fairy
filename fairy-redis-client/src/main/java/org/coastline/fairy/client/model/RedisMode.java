@@ -6,12 +6,21 @@ import java.util.Objects;
  * @author Jay.H.Zou
  * @date 2020/11/2
  */
-public enum  RedisMode {
+public enum RedisMode {
 
+    /**
+     * cluster
+     */
     CLUSTER("cluster"),
 
+    /**
+     * master-replica
+     */
     STANDALONE("standalone"),
 
+    /**
+     * sentinel
+     */
     SENTINEL("sentinel");
 
     private String value;

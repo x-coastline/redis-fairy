@@ -71,7 +71,6 @@ public class ClusterEntity {
 
     /**
      * 集群状态
-     * TODO: 状态整理
      */
     public enum State {
         /**

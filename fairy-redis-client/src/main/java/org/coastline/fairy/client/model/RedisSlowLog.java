@@ -83,17 +83,4 @@ public class RedisSlowLog {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
-
-    @Override
-    public String toString() {
-        return "RedisSlowLog{" +
-                "id=" + id +
-                ", client='" + client + '\'' +
-                ", duration=" + duration +
-                ", type='" + type + '\'' +
-                ", command='" + command + '\'' +
-                ", clientName='" + clientName + '\'' +
-                ", timestamp=" + timestamp +
-                '}';
-    }
 }

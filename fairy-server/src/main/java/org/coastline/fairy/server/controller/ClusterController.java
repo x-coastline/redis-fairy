@@ -48,7 +48,7 @@ public class ClusterController {
     }
 
     @PostMapping("/add")
-    public Result addCluster(@RequestBody ClusterEntity cluster) {
+    public Result<String> addCluster(@RequestBody ClusterEntity cluster) {
         try {
             cluster.setImportType(ImportType.IMPORT);
             clusterService.addCluster(cluster);

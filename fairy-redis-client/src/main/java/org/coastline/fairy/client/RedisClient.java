@@ -4,10 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
-import org.coastline.amber.client.model.*;
-import org.coastline.amber.client.util.RedisUtil;
-import org.coastline.amber.common.StringUtil;
 import org.coastline.fairy.client.model.*;
+import org.coastline.fairy.client.util.RedisUtil;
+import org.coastline.fairy.common.StringUtil;
 import redis.clients.jedis.ClusterReset;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
@@ -178,8 +177,7 @@ public class RedisClient implements IRedisClient {
                 }
                 clusterNodeList.add(redisNode);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
         return clusterNodeList;
     }

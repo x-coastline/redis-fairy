@@ -1,8 +1,6 @@
 package org.coastline.fairy.server.dao;
 
 import org.apache.ibatis.annotations.*;
-import org.coastline.amber.server.entity.NodeInfoEntity;
-import org.coastline.amber.server.model.NodeInfoParam;
 import org.coastline.fairy.server.entity.NodeInfoEntity;
 import org.coastline.fairy.server.model.NodeInfoParam;
 

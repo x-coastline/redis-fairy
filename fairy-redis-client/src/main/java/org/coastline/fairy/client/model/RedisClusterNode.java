@@ -35,6 +35,37 @@ public class RedisClusterNode extends RedisNode {
 
     private String slotRange;
 
+
+    /**
+     * Redis Cluster node flags.
+     */
+    public enum NodeFlag {
+
+        /**
+         * no state
+         */
+        NOFLAGS("noflags"),
+        /**
+         * current node
+         */
+        MYSELF("myself"),
+        SLAVE("slave"),
+        REPLICA("replica"),
+        MASTER("master"),
+        EVENTUAL_FAIL("eventual_fail"),
+        FAIL("fail"),
+        HANDSHAKE("handshake"),
+        NOADDR("noaddr"),
+        UNKOWN("unknow");
+
+        private String value;
+
+        NodeFlag(String value) {
+            this.value = value;
+        }
+
+    }
+
     public RedisClusterNode(){}
 
     public RedisClusterNode(String nodeId, HostAndPort node) {
@@ -111,30 +142,6 @@ public class RedisClusterNode extends RedisNode {
 
     public void setSlotRange(String slotRange) {
         this.slotRange = slotRange;
-    }
-
-    /**
-     * Redis Cluster node flags.
-     */
-    public enum NodeFlag {
-
-        NOFLAGS("noflags"),
-        MYSELF("myself"),
-        SLAVE("slave"),
-        REPLICA("replica"),
-        MASTER("master"),
-        EVENTUAL_FAIL("eventual_fail"),
-        FAIL("fail"),
-        HANDSHAKE("handshake"),
-        NOADDR("noaddr"),
-        UNKOWN("unknow");
-
-        private String value;
-
-        NodeFlag(String value) {
-            this.value = value;
-        }
-
     }
 
 }

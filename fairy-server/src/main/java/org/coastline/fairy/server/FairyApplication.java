@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Jay.H.Zou
  * @date 2020/11/8
  */
-@MapperScan({"org.coastline.amber.server.dao"})
+@MapperScan({"org.coastline.fairy.server.dao"})
 @SpringBootApplication
-public class AmberApplication {
+public class FairyApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AmberApplication.class, args);
+        SpringApplication.run(FairyApplication.class, args);
     }
 
 }

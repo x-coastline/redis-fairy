@@ -19,7 +19,7 @@ const appConfig = {
     type: 'browser',
   },
   app: {
-    rootId: 'amber-container',
+    rootId: 'fairy-container',
     // addProvider: ({ children }) => <LocaleProvider locale={locale}>{children}</LocaleProvider>,
     // getInitialData: async () => {
 
@@ -68,7 +68,6 @@ const appConfig = {
   // },
   // https://ice.work/docs/guide/basic/request
   request: [{
-
     // 可选的，全局设置 request 是否返回 response 对象，默认为 false
     withFullResponse: false,
 
