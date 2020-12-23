@@ -2,6 +2,7 @@ package org.coastline.fairy.common;
 
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 
 import static javax.management.timer.Timer.ONE_MINUTE;
@@ -52,7 +53,7 @@ public class TimeUtil {
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static long getCurrentTimeMillis() {
-        return System.currentTimeMillis();
+        return Instant.now().toEpochMilli();
     }
 
     public static Timestamp getPastTimeMillis(Duration duration) {
@@ -64,7 +65,7 @@ public class TimeUtil {
     }
 
     public static Timestamp getTime(long duration) {
-        return new Timestamp(System.currentTimeMillis() - duration);
+        return new Timestamp(getCurrentTimeMillis() - duration);
     }
 
 }

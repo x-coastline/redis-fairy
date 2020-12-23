@@ -33,6 +33,10 @@ public class RedisClient implements IRedisClient {
 
     private static final String CONNECTED = "connected";
 
+    private static String DB_PREFIX = "db";
+
+    private static String COMMAND_STAT_PREFIX = "cmdstat";
+
     private Jedis jedis;
 
     private RedisURI redisURI;
@@ -79,13 +83,7 @@ public class RedisClient implements IRedisClient {
 
     @Override
     public RedisInfo infoModel() {
-        try {
-            Object redisInfo = infoToObject(info());
-            return (RedisInfo) redisInfo;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return infoToObject(info());
     }
 
     @Override
@@ -95,13 +93,7 @@ public class RedisClient implements IRedisClient {
 
     @Override
     public RedisInfo infoModel(String section) {
-        try {
-            Object redisInfo = infoToObject(info(section));
-            return (RedisInfo) redisInfo;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return infoToObject(info(section));
     }
 
     @Override
@@ -368,19 +360,59 @@ public class RedisClient implements IRedisClient {
 
     private RedisInfo infoToObject(Map<String, String> map) {
         JSONObject jsonObject = new JSONObject();
+        List<RedisInfo.RedisKeyspace> keyspaceList = new ArrayList<>();
+        List<RedisInfo.RedisCommandStat> commandStatList = new ArrayList<>();
         map.forEach((key, value) -> {
-            // TODO: 类型转换处理
-            // TODO: keyspace, command operation,
+            // 处理 keyspace
+            if (key.startsWith(DB_PREFIX)) {
+                RedisInfo.RedisKeyspace redisKeyspace = parseKeyspace(key, value);
+                keyspaceList.add(redisKeyspace);
+                return;
+            }
+            // 处理 command
+            if (key.startsWith(COMMAND_STAT_PREFIX)) {
+                RedisInfo.RedisCommandStat redisCommandStat = parseRedisCommandStat(key, value);
+                commandStatList.add(redisCommandStat);
+                return;
+            }
             jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value);
         });
-        return JSONObject.parseObject(jsonObject.toJSONString(), RedisInfo.class);
+        RedisInfo redisInfo = JSONObject.parseObject(jsonObject.toJSONString(), RedisInfo.class);
+        redisInfo.setKeyspaceList(keyspaceList);
+        redisInfo.setCommandStats(commandStatList);
+        return redisInfo;
+    }
+
+    private RedisInfo.RedisKeyspace parseKeyspace(String key, String value) {
+        JSONObject keyspaceObj = new JSONObject();
+        String[] dataArr = StringUtil.splitByCommas(value);
+        for (String subKeyValue : dataArr) {
+            String[] subKeyValueArr = StringUtil.splitByEqualSign(subKeyValue);
+            String subKey = subKeyValueArr[0];
+            long subValue = Long.parseLong(subKeyValueArr[1]);
+            keyspaceObj.put(subKey, subValue);
+        }
+        RedisInfo.RedisKeyspace redisKeyspace = keyspaceObj.toJavaObject(RedisInfo.RedisKeyspace.class);
+        int database = Integer.parseInt(key.substring(2));
+        redisKeyspace.setDatabase(database);
+        return redisKeyspace;
+    }
+
+    private RedisInfo.RedisCommandStat parseRedisCommandStat(String key, String value) {
+        JSONObject commandStatObj = new JSONObject();
+        String[] dataArr = StringUtil.splitByCommas(value);
+        for (String subKeyValue : dataArr) {
+            String[] subKeyValueArr = StringUtil.splitByEqualSign(subKeyValue);
+            commandStatObj.put(subKeyValueArr[0], Double.parseDouble(subKeyValueArr[1]));
+        }
+        RedisInfo.RedisCommandStat redisCommandStat = commandStatObj.toJavaObject(RedisInfo.RedisCommandStat.class);
+        redisCommandStat.setCommandType(key);
+        return redisCommandStat;
     }
 
     private Object clusterInfoToObject(Map<String, String> map) {
         JSONObject jsonObject = new JSONObject();
-        map.forEach((key, value) -> {
-            jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value);
-        });
+        map.forEach((key, value) -> jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value));
         return JSONObject.parseObject(jsonObject.toJSONString(), ClusterInfo.class);
     }
 }

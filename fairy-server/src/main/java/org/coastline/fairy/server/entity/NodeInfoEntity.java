@@ -53,9 +53,7 @@ public class NodeInfoEntity {
 
     private boolean lastTime;
 
-    private long responseTime;
-
-    /***********************  Clients ******************************/
+    /*======================================= clients =======================================*/
     private long connectedClients;
 
     private long clientLongestOutputList;
@@ -64,7 +62,7 @@ public class NodeInfoEntity {
 
     private long blockedClients;
 
-    /***********************  Memory ******************************/
+    /*======================================= memory =======================================*/
     /**
      * 由 Redis 分配器分配的内存总量，以字节（byte）为单位
      * usedMemory = used_memory / 1024 / 1024
@@ -231,14 +229,6 @@ public class NodeInfoEntity {
 
     public void setLastTime(boolean lastTime) {
         this.lastTime = lastTime;
-    }
-
-    public long getResponseTime() {
-        return responseTime;
-    }
-
-    public void setResponseTime(long responseTime) {
-        this.responseTime = responseTime;
     }
 
     public long getConnectedClients() {

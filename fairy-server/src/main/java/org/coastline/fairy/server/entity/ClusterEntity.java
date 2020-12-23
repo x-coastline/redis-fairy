@@ -17,7 +17,7 @@ public class ClusterEntity {
     private Integer groupId;
 
     /**
-     * 集群名称
+     * cluster name
      */
     private String clusterName;
 
@@ -36,12 +36,7 @@ public class ClusterEntity {
 
     private String redisPassword;
 
-    /**
-     * 通过 token 连接
-     */
-    private String token;
-
-    private State state = State.HEALTH;
+    private State state;
 
     private int masterNumber;
 
@@ -57,17 +52,11 @@ public class ClusterEntity {
 
     private ImportType importType;
 
-    private boolean enableNodesMonitor;
-
-    private boolean enableClusterMonitor;
-
-    private boolean enableSentinelMasterMonitor;
-
-    private String info;
-
-    private Timestamp createTime;
+    private String description;
 
     private Timestamp updateTime;
+
+    private Timestamp creationTime;
 
     /**
      * 集群状态
@@ -163,14 +152,6 @@ public class ClusterEntity {
         this.redisPassword = redisPassword;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public State getState() {
         return state;
     }
@@ -219,44 +200,12 @@ public class ClusterEntity {
         this.importType = importType;
     }
 
-    public boolean isEnableNodesMonitor() {
-        return enableNodesMonitor;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEnableNodesMonitor(boolean enableNodesMonitor) {
-        this.enableNodesMonitor = enableNodesMonitor;
-    }
-
-    public boolean isEnableClusterMonitor() {
-        return enableClusterMonitor;
-    }
-
-    public void setEnableClusterMonitor(boolean enableClusterMonitor) {
-        this.enableClusterMonitor = enableClusterMonitor;
-    }
-
-    public boolean isEnableSentinelMasterMonitor() {
-        return enableSentinelMasterMonitor;
-    }
-
-    public void setEnableSentinelMasterMonitor(boolean enableSentinelMasterMonitor) {
-        this.enableSentinelMasterMonitor = enableSentinelMasterMonitor;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getUpdateTime() {
@@ -267,31 +216,11 @@ public class ClusterEntity {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "ClusterEntity{" +
-                "clusterId=" + clusterId +
-                ", groupId=" + groupId +
-                ", clusterName='" + clusterName + '\'' +
-                ", seed='" + seed + '\'' +
-                ", redisMode=" + redisMode +
-                ", os='" + os + '\'' +
-                ", redisVersion='" + redisVersion + '\'' +
-                ", image='" + image + '\'' +
-                ", redisPassword='" + redisPassword + '\'' +
-                ", token='" + token + '\'' +
-                ", state=" + state +
-                ", masterNumber=" + masterNumber +
-                ", nodeNumber=" + nodeNumber +
-                ", tag='" + tag + '\'' +
-                ", environment=" + environment +
-                ", importType=" + importType +
-                ", enableNodesMonitor=" + enableNodesMonitor +
-                ", enableClusterMonitor=" + enableClusterMonitor +
-                ", enableSentinelMasterMonitor=" + enableSentinelMasterMonitor +
-                ", info='" + info + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
+    public Timestamp getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Timestamp creationTime) {
+        this.creationTime = creationTime;
     }
 }

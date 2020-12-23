@@ -85,7 +85,7 @@ public class ClusterService implements IClusterService {
     public boolean addCluster(ClusterEntity cluster) {
         ClusterEntity completedCluster = completeClusterInfo(cluster);
         Timestamp currentTimestamp = TimeUtil.getCurrentTimestamp();
-        completedCluster.setCreateTime(currentTimestamp);
+        completedCluster.setCreationTime(currentTimestamp);
         completedCluster.setUpdateTime(currentTimestamp);
         clusterDao.insertCluster(completedCluster);
         Integer clusterId = cluster.getClusterId();

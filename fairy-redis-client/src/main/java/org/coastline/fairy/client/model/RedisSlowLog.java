@@ -18,6 +18,9 @@ public class RedisSlowLog {
      */
     private String client;
 
+    /**
+     * 命令耗时，单位：微妙
+     */
     private long duration;
 
     private String type;

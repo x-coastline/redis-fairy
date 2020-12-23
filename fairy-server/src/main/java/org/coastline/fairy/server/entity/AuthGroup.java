@@ -12,9 +12,11 @@ public class AuthGroup {
 
     private String groupName;
 
+    private String owner;
+
     private String email;
 
-    private Timestamp updateTime;
+    private Timestamp creationTime;
 
     public Integer getGroupId() {
         return groupId;
@@ -32,6 +34,14 @@ public class AuthGroup {
         this.groupName = groupName;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -40,11 +50,11 @@ public class AuthGroup {
         this.email = email;
     }
 
-    public Timestamp getUpdateTime() {
-        return updateTime;
+    public Timestamp getCreationTime() {
+        return creationTime;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
+    public void setCreationTime(Timestamp creationTime) {
+        this.creationTime = creationTime;
     }
 }

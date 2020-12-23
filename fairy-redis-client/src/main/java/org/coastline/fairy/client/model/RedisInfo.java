@@ -146,7 +146,7 @@ public class RedisInfo {
     /**
      * keyspace
      */
-    static class RedisKeyspace {
+    public static class RedisKeyspace {
         private int database;
 
         private long keys;
@@ -207,7 +207,7 @@ public class RedisInfo {
      * cmdstat_select:calls=2,usec=0,usec_per_call=0.00
      * cmdstat_cluster:calls=14184,usec=1683540,usec_per_call=118.69
      */
-    static class RedisCommandStat {
+    public static class RedisCommandStat {
         private String commandType;
 
         /**
