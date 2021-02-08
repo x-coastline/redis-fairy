@@ -49,12 +49,12 @@ public interface IClusterDao {
     int updateClusterState(ClusterEntity cluster);
 
     @Insert("INSERT INTO cluster " +
-            "(group_id, cluster_name, seed, redis_mode, " +
+            "(group_id, user_id,  cluster_name, seed, redis_mode, " +
             "os, redis_version, image, redis_password, state, " +
             "master_number, node_number, tag, environment, import_type, info, " +
             "create_time, update_time) " +
             "VALUES " +
-            "(#{groupId}, #{clusterName}, #{seed}, #{redisMode}, " +
+            "(#{groupId}, #{userId}， #{clusterName}, #{seed}, #{redisMode}, " +
             "#{os}, #{redisVersion}, #{image}, #{redisPassword}, #{state}, " +
             "#{masterNumber}, #{nodeNumber}, #{tag}, #{environment}, #{importType}, #{info}, " +
             "#{createTime}, #{updateTime})")
@@ -67,6 +67,7 @@ public interface IClusterDao {
     @Select("CREATE TABLE IF NOT EXISTS `cluster` (" +
             "cluster_id integer(4) NOT NULL AUTO_INCREMENT COMMENT '自增ID'," +
             "group_id integer(4) NOT NULL," +
+            "user_id integer(4) NOT NULL," +
             "cluster_name varchar(255) NOT NULL," +
             "seed TEXT NOT NULL," +
             "redis_mode varchar(25) NOT NULL," +

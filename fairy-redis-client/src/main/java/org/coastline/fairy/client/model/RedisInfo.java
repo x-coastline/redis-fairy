@@ -145,6 +145,7 @@ public class RedisInfo {
 
     /**
      * keyspace
+     * db0:keys=1,expires=0,avg_ttl=0
      */
     public static class RedisKeyspace {
         private int database;

@@ -17,15 +17,6 @@ import java.util.Set;
  */
 public class RedisClientFactory {
 
-/*    public static RedisClusterClient buildRedisClusterClient(RedisURI redisURI) {
-        return new RedisClusterClient(redisURI);
-    }
-
-    public static RedisClusterClient buildRedisClusterClient(RedisNode redisNode, String requirePass) {
-        RedisURI redisURI = new RedisURI(redisNode.getHost(), redisNode.getPort(), requirePass);
-        return buildRedisClusterClient(redisURI);
-    }*/
-
     public static RedisClient buildRedisClient(RedisURI redisURI) {
         RedisClient redisClient = new RedisClient(redisURI);
         if (redisClient.getClient() == null) {

@@ -103,13 +103,10 @@ public class RedisClient implements IRedisClient {
 
     @Override
     public ClusterInfo clusterInfoModel() {
-        try {
-            Object redisInfo = clusterInfoToObject(clusterInfo());
-            return (ClusterInfo) redisInfo;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Map<String, String> clusterInfoMap = clusterInfo();
+        JSONObject jsonObject = new JSONObject();
+        clusterInfoMap.forEach((key, value) -> jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value));
+        return JSONObject.parseObject(jsonObject.toJSONString(), ClusterInfo.class);
     }
 
     @Override
@@ -410,9 +407,4 @@ public class RedisClient implements IRedisClient {
         return redisCommandStat;
     }
 
-    private Object clusterInfoToObject(Map<String, String> map) {
-        JSONObject jsonObject = new JSONObject();
-        map.forEach((key, value) -> jsonObject.put(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key), value));
-        return JSONObject.parseObject(jsonObject.toJSONString(), ClusterInfo.class);
-    }
 }
