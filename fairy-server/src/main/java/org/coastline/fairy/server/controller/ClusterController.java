@@ -1,6 +1,6 @@
 package org.coastline.fairy.server.controller;
 
-import org.coastline.fairy.server.entity.ClusterEntity;
+import org.coastline.fairy.server.entity.ClusterDO;
 import org.coastline.fairy.server.model.ImportType;
 import org.coastline.fairy.server.model.Result;
 import org.coastline.fairy.server.service.IClusterService;
@@ -25,9 +25,9 @@ public class ClusterController {
     private IClusterService clusterService;
 
     @GetMapping("/list/{groupId}")
-    public Result<List<ClusterEntity>> listCluster(@PathVariable Integer groupId) {
+    public Result<List<ClusterDO>> listCluster(@PathVariable Integer groupId) {
         try {
-            List<ClusterEntity> clusterList = clusterService.getClusterByGroup(groupId);
+            List<ClusterDO> clusterList = clusterService.getClusterByGroup(groupId);
             // TODO: 移除敏感字段（password, token...）
             return Result.ofSuccess(clusterList);
         } catch (Exception e) {
@@ -38,9 +38,9 @@ public class ClusterController {
     }
 
     @GetMapping("/get/{clusterId}")
-    public Result<ClusterEntity> getCluster(@PathVariable Integer clusterId) {
+    public Result<ClusterDO> getCluster(@PathVariable Integer clusterId) {
         try {
-            ClusterEntity cluster = clusterService.getClusterById(clusterId);
+            ClusterDO cluster = clusterService.getClusterById(clusterId);
             return Result.ofSuccess(cluster);
         } catch (Exception e) {
             return Result.ofFail(e.getMessage());
@@ -48,7 +48,7 @@ public class ClusterController {
     }
 
     @PostMapping("/add")
-    public Result<String> addCluster(@RequestBody ClusterEntity cluster) {
+    public Result<String> addCluster(@RequestBody ClusterDO cluster) {
         try {
             cluster.setImportType(ImportType.IMPORT);
             clusterService.addCluster(cluster);

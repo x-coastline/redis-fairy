@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Jay.H.Zou
@@ -184,17 +185,18 @@ public class RedisClient implements IRedisClient {
         } else {
             slowlogs = jedis.slowlogGet();
         }
-        List<RedisSlowLog> slowLogList = new ArrayList<>(slowlogs.size());
-        for (Slowlog slowlog : slowlogs) {
-            RedisSlowLog redisSlowLog = new RedisSlowLog();
-            redisSlowLog.setId(slowlog.getId());
-            redisSlowLog.setDuration(slowlog.getExecutionTime());
-            redisSlowLog.setTimestamp(new Timestamp(slowlog.getTimeStamp() * 1000));
-            List<String> args = slowlog.getArgs();
-            redisSlowLog.setType(args.get(0));
-            redisSlowLog.setCommand(Joiner.on(" ").skipNulls().join(args));
-            slowLogList.add(redisSlowLog);
-        }
+        List<RedisSlowLog> slowLogList = new CopyOnWriteArrayList<>();
+        slowlogs.parallelStream().forEach(slowlog -> {
+                    RedisSlowLog redisSlowLog = new RedisSlowLog();
+                    redisSlowLog.setId(slowlog.getId());
+                    redisSlowLog.setDuration(slowlog.getExecutionTime());
+                    redisSlowLog.setCreationTime(new Timestamp(slowlog.getTimeStamp() * 1000));
+                    List<String> args = slowlog.getArgs();
+                    redisSlowLog.setType(args.get(0));
+                    redisSlowLog.setCommand(Joiner.on(" ").skipNulls().join(args));
+                    slowLogList.add(redisSlowLog);
+                }
+        );
         return slowLogList;
     }
 
@@ -395,6 +397,11 @@ public class RedisClient implements IRedisClient {
         return redisKeyspace;
     }
 
+    /**
+     * @param key
+     * @param value
+     * @return
+     */
     private RedisInfo.RedisCommandStat parseRedisCommandStat(String key, String value) {
         JSONObject commandStatObj = new JSONObject();
         String[] dataArr = StringUtil.splitByCommas(value);

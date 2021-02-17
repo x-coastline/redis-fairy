@@ -1,7 +1,7 @@
 package org.coastline.fairy.server.dao;
 
 import org.apache.ibatis.annotations.*;
-import org.coastline.fairy.server.entity.NodeInfoEntity;
+import org.coastline.fairy.server.entity.NodeInfoDO;
 import org.coastline.fairy.server.model.NodeInfoParam;
 
 import java.sql.Timestamp;
@@ -28,7 +28,7 @@ public interface INodeInfoDao {
             "</foreach>" +
             " AND last_time IN (1, 0)" +
             "</script>")
-    List<NodeInfoEntity> selectNodeInfoListWithInfoItem(@Param("nodeInfoParam") NodeInfoParam nodeInfoParam);
+    List<NodeInfoDO> selectNodeInfoListWithInfoItem(@Param("nodeInfoParam") NodeInfoParam nodeInfoParam);
 
     @Select("<script>" +
             "SELECT * FROM node_info_${clusterId} " +
@@ -37,7 +37,7 @@ public interface INodeInfoDao {
             "AND node = #{node}" +
             "</if>" +
             "</script>")
-    List<NodeInfoEntity> selectLastTimeNodeInfo(NodeInfoParam nodeInfoParam);
+    List<NodeInfoDO> selectLastTimeNodeInfo(NodeInfoParam nodeInfoParam);
 
     @Insert("<script>" +
             "INSERT INTO node_info_${clusterId} (node, role, last_time, " +
@@ -60,7 +60,7 @@ public interface INodeInfoDao {
             "#{nodeInfo.keys}, #{nodeInfo.expires}, #{nodeInfo.totalSlowLog}, #{nodeInfo.slowLog}, #{nodeInfo.updateTime})" +
             "</foreach>" +
             "</script>")
-    int insertNodeInfo(@Param("clusterId") Integer clusterId, @Param("nodeInfoList") List<NodeInfoEntity> nodeInfoList);
+    int insertNodeInfo(@Param("clusterId") Integer clusterId, @Param("nodeInfoList") List<NodeInfoDO> nodeInfoList);
 
     @Delete("DELETE FROM node_info_${clusterId} WHERE update_time <= #{oldestTime}")
     int deleteNodeInfoByTime(@Param("clusterId") Integer clusterId, @Param("oldestTime") Timestamp oldestTime);

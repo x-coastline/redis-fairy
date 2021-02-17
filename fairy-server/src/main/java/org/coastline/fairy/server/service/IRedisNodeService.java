@@ -1,7 +1,7 @@
 package org.coastline.fairy.server.service;
 
 
-import org.coastline.fairy.server.entity.RedisNodeEntity;
+import org.coastline.fairy.server.entity.RedisNodeDO;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,14 +19,14 @@ public interface IRedisNodeService {
      * @return
      * @throws Exception
      */
-    List<RedisNodeEntity> getRedisNodeList(Integer clusterId);
+    List<RedisNodeDO> getRedisNodeList(Integer clusterId);
 
     /**
      *
      * @param clusterId
      * @return
      */
-    Map<String, Collection<RedisNodeEntity>> getRedisNodeMap(Integer clusterId) throws Exception;
+    Map<String, Collection<RedisNodeDO>> getRedisNodeMap(Integer clusterId) throws Exception;
 
     /**
      * 获取集群中的实际节点
@@ -34,11 +34,11 @@ public interface IRedisNodeService {
      * @return
      * @throws Exception
      */
-    List<RedisNodeEntity> getRealNodeList(Integer clusterId) throws Exception;
+    List<RedisNodeDO> getRealNodeList(Integer clusterId) throws Exception;
 
-    boolean addRedisNode(RedisNodeEntity redisNode);
+    boolean addRedisNode(RedisNodeDO redisNode);
 
-    boolean addRedisNodeList(List<RedisNodeEntity> redisNodeList);
+    boolean addRedisNodeList(List<RedisNodeDO> redisNodeList);
 
-    boolean updateRedisNode(RedisNodeEntity redisNode);
+    boolean updateRedisNode(RedisNodeDO redisNode);
 }

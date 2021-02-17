@@ -1,7 +1,7 @@
 package org.coastline.fairy.server.dao;
 
 import org.apache.ibatis.annotations.*;
-import org.coastline.fairy.server.entity.ClusterEntity;
+import org.coastline.fairy.server.entity.ClusterDO;
 
 import java.util.List;
 import java.util.Set;
@@ -17,7 +17,7 @@ public interface IClusterDao {
     Set<Integer> selectAllClusterId();
 
     @Select("SELECT * FROM cluster")
-    List<ClusterEntity> selectAllCluster();
+    List<ClusterDO> selectAllCluster();
 
     @Select("SELECT " +
             "cluster_id, group_id, cluster_name, seed, redis_mode, " +
@@ -25,7 +25,7 @@ public interface IClusterDao {
             "master_number, node_number, tag, environment, import_type, info, " +
             "create_time, update_time " +
             "FROM cluster WHERE cluster_id = #{clusterId}")
-    ClusterEntity selectClusterById(@Param("clusterId") Integer clusterId);
+    ClusterDO selectClusterById(@Param("clusterId") Integer clusterId);
 
     @Select("SELECT " +
             "cluster_id, group_id, cluster_name, seed, redis_mode, " +
@@ -33,20 +33,20 @@ public interface IClusterDao {
             "master_number, node_number, tag, environment, import_type, info, " +
             "create_time, update_time " +
             "FROM cluster WHERE group_id = #{groupId}")
-    List<ClusterEntity> selectClusterByGroup(@Param("groupId") Integer groupId);
+    List<ClusterDO> selectClusterByGroup(@Param("groupId") Integer groupId);
 
     @Insert("UPDATE cluster SET " +
             "cluster_name = #{clusterName}, seed = #{seed}, redis_password = #{redisPassword}, " +
             "tag = #{tag}, info = #{info}, environment = #{environment}, " +
             "update_time = #{updateTime} " +
             "WHERE cluster_id = #{clusterId}")
-    int updateCluster(ClusterEntity cluster);
+    int updateCluster(ClusterDO cluster);
 
     @Update("UPDATE cluster SET " +
             "state = #{state}, master_number = #{masterNumber}, node_number = #{nodeNumber}, " +
             "update_time = #{updateTime} " +
             "WHERE cluster_id = #{clusterId}")
-    int updateClusterState(ClusterEntity cluster);
+    int updateClusterState(ClusterDO cluster);
 
     @Insert("INSERT INTO cluster " +
             "(group_id, user_id,  cluster_name, seed, redis_mode, " +
@@ -59,10 +59,10 @@ public interface IClusterDao {
             "#{masterNumber}, #{nodeNumber}, #{tag}, #{environment}, #{importType}, #{info}, " +
             "#{createTime}, #{updateTime})")
     @Options(useGeneratedKeys = true, keyProperty = "clusterId", keyColumn = "cluster_id")
-    Integer insertCluster(ClusterEntity cluster);
+    Integer insertCluster(ClusterDO cluster);
 
     @Update("DELETE FROM cluster WHERE cluster_id = #{clusterId}")
-    int deleteCluster(ClusterEntity cluster);
+    int deleteCluster(ClusterDO cluster);
 
     @Select("CREATE TABLE IF NOT EXISTS `cluster` (" +
             "cluster_id integer(4) NOT NULL AUTO_INCREMENT COMMENT '自增ID'," +

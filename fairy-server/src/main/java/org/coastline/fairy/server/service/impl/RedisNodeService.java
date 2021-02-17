@@ -1,6 +1,6 @@
 package org.coastline.fairy.server.service.impl;
 
-import org.coastline.fairy.server.entity.RedisNodeEntity;
+import org.coastline.fairy.server.entity.RedisNodeDO;
 import org.coastline.fairy.server.service.IClusterService;
 import org.coastline.fairy.server.service.IRedisNodeService;
 import org.slf4j.Logger;
@@ -26,32 +26,32 @@ public class RedisNodeService implements IRedisNodeService {
     private IClusterService clusterService;
 
     @Override
-    public List<RedisNodeEntity> getRedisNodeList(Integer clusterId) {
+    public List<RedisNodeDO> getRedisNodeList(Integer clusterId) {
         return null;
     }
 
     @Override
-    public Map<String, Collection<RedisNodeEntity>> getRedisNodeMap(Integer clusterId) throws Exception {
+    public Map<String, Collection<RedisNodeDO>> getRedisNodeMap(Integer clusterId) throws Exception {
         return null;
     }
 
     @Override
-    public List<RedisNodeEntity> getRealNodeList(Integer clusterId) throws Exception {
+    public List<RedisNodeDO> getRealNodeList(Integer clusterId) throws Exception {
         return null;
     }
 
     @Override
-    public boolean addRedisNode(RedisNodeEntity redisNode) {
+    public boolean addRedisNode(RedisNodeDO redisNode) {
         return false;
     }
 
     @Override
-    public boolean addRedisNodeList(List<RedisNodeEntity> redisNodeList) {
+    public boolean addRedisNodeList(List<RedisNodeDO> redisNodeList) {
         return false;
     }
 
     @Override
-    public boolean updateRedisNode(RedisNodeEntity redisNode) {
+    public boolean updateRedisNode(RedisNodeDO redisNode) {
         return false;
     }
 }

@@ -1,7 +1,7 @@
 package org.coastline.fairy.server.service;
 
 
-import org.coastline.fairy.server.entity.ClusterEntity;
+import org.coastline.fairy.server.entity.ClusterDO;
 
 import java.util.List;
 import java.util.Set;
@@ -14,20 +14,20 @@ public interface IClusterService {
 
     Set<Integer> getAllClusterId();
 
-    List<ClusterEntity> getAllCluster();
+    List<ClusterDO> getAllCluster();
 
-    ClusterEntity getClusterById(Integer clusterId);
+    ClusterDO getClusterById(Integer clusterId);
 
-    List<ClusterEntity> getClusterByGroup(Integer groupId);
+    List<ClusterDO> getClusterByGroup(Integer groupId);
 
-    boolean addCluster(ClusterEntity cluster);
+    boolean addCluster(ClusterDO cluster);
 
-    boolean updateCluster(ClusterEntity cluster);
+    boolean updateCluster(ClusterDO cluster);
 
-    boolean updateClusterState(ClusterEntity cluster);
+    boolean updateClusterState(ClusterDO cluster);
 
-    boolean deleteClusterState(ClusterEntity cluster);
+    boolean deleteClusterState(ClusterDO cluster);
 
-    ClusterEntity completeClusterInfo(ClusterEntity cluster);
+    ClusterDO completeClusterInfo(ClusterDO cluster);
 
 }

@@ -1,6 +1,9 @@
 package org.coastline.fairy.client.model;
 
 import com.google.common.collect.Sets;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import redis.clients.jedis.HostAndPort;
 
 import java.util.Set;
@@ -9,17 +12,20 @@ import java.util.Set;
  * @author Jay.H.Zou
  * @date 2020/10/31
  */
+@Data
+@Builder
+@NoArgsConstructor
 public class RedisURI {
 
     /**
      * Default timeout: 60 sec
      */
-    public static final int DEFAULT_TIMEOUT = 100;
+    public static final int DEFAULT_TIMEOUT = 60;
 
     /**
      * default client name
      */
-    public static String DEFAULT_CLIENT_NAME = "fairy";
+    public static String DEFAULT_CLIENT_NAME = "fairy-client";
 
     private Set<HostAndPort> hostAndPortSet;
 
@@ -32,9 +38,6 @@ public class RedisURI {
     private String password;
 
     private int timeout = DEFAULT_TIMEOUT;
-
-    private RedisURI() {
-    }
 
     public RedisURI(String host, int port) {
         this(new HostAndPort(host, port), null);
@@ -58,54 +61,6 @@ public class RedisURI {
         this.clientName = DEFAULT_CLIENT_NAME;
         this.sentinelMasterId = sentinelMasterId;
         this.password = password;
-    }
-
-    public Set<HostAndPort> getHostAndPortSet() {
-        return hostAndPortSet;
-    }
-
-    public void setHostAndPortSet(Set<HostAndPort> hostAndPortSet) {
-        this.hostAndPortSet = hostAndPortSet;
-    }
-
-    public int getDatabase() {
-        return database;
-    }
-
-    public void setDatabase(int database) {
-        this.database = database;
-    }
-
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
-    public String getSentinelMasterId() {
-        return sentinelMasterId;
-    }
-
-    public void setSentinelMasterId(String sentinelMasterId) {
-        this.sentinelMasterId = sentinelMasterId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
     }
 
 }

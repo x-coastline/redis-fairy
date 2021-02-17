@@ -1,7 +1,7 @@
 package org.coastline.fairy.server.dao;
 
 import org.apache.ibatis.annotations.*;
-import org.coastline.fairy.server.entity.RedisNodeEntity;
+import org.coastline.fairy.server.entity.RedisNodeDO;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import java.util.List;
 public interface IRedisNodeDao {
 
     @Select("SELECT * FROM redis_node WHERE cluster_id = #{clusterId}")
-    List<RedisNodeEntity> selectRedisNodeListByCluster(Integer clusterId);
+    List<RedisNodeDO> selectRedisNodeListByCluster(Integer clusterId);
 
     @Select("SELECT * FROM redis_node WHERE redis_node_id = #{redisNodeId}")
-    RedisNodeEntity selectRedisNodeById(Integer redisNodeId);
+    RedisNodeDO selectRedisNodeById(Integer redisNodeId);
 
     @Select("SELECT * FROM redis_node WHERE cluster_id = #{clusterId} AND host = #{host} AND port = #{port}")
-    RedisNodeEntity existRedisNode(RedisNodeEntity redisNodeEntity);
+    RedisNodeDO existRedisNode(RedisNodeDO redisNodeDO);
 
     @Insert("<script>" +
             "INSERT INTO redis_node (group_id, cluster_id, node_id, master_id, host, port, node_role, " +
@@ -32,13 +32,13 @@ public interface IRedisNodeDao {
             "#{redisNode.flags}, #{redisNode.linkState}, #{redisNode.inCluster}, #{redisNode.runStatus}, #{redisNode.slotRange}, #{redisNode.slotNumber}, #{redisNode.containerId}, #{redisNode.containerName}, NOW(), NOW())" +
             "</foreach>" +
             "</script>")
-    int insertRedisNodeList(@Param("redisNodeList") List<RedisNodeEntity> redisNodeEntityList);
+    int insertRedisNodeList(@Param("redisNodeList") List<RedisNodeDO> redisNodeDOList);
 
     @Update("UPDATE redis_node SET node_id = #{nodeId}, master_id = #{masterId}, node_role = #{nodeRole}, flags = #{flags}, " +
             "link_state = #{linkState}, in_cluster = #{inCluster}, run_status = #{runStatus}, " +
             "slot_range = #{slotRange}, update_time = NOW() " +
             "WHERE cluster_id = #{clusterId} AND host = #{host} AND port = #{port}")
-    int updateRedisNode(RedisNodeEntity redisNodeEntity);
+    int updateRedisNode(RedisNodeDO redisNodeDO);
 
     @Delete("DELETE FROM redis_node WHERE cluster_id = #{clusterId}")
     int deleteNodeByClusterId(Integer clusterId);

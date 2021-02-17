@@ -11,5 +11,12 @@
 
     <artifactId>fairy-agent</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.coastline.fairy</groupId>
+            <artifactId>fairy-redis-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

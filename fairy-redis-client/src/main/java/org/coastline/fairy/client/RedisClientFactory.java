@@ -54,6 +54,11 @@ public class RedisClientFactory {
         return buildRedisClient(redisURI);
     }
 
+    /**
+     * xxx,xxx,xxx => set
+     * @param seed
+     * @return
+     */
     private static Set<HostAndPort> buildHostAndPortsFromSeed(String seed) {
         String[] seedArr = StringUtil.splitByCommas(seed);
         Set<HostAndPort> hostAndPorts = new HashSet<>(seedArr.length);

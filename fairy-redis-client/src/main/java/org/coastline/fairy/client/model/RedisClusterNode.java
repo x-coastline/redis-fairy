@@ -1,6 +1,9 @@
 package org.coastline.fairy.client.model;
 
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import redis.clients.jedis.HostAndPort;
 
 import java.util.Set;
@@ -12,6 +15,9 @@ import java.util.Set;
  * @author Jay.H.Zou
  * @date 2020/10/14
  */
+@Data
+@Builder
+@NoArgsConstructor
 public class RedisClusterNode extends RedisNode {
 
     private Set<NodeFlag> flags;
@@ -20,21 +26,13 @@ public class RedisClusterNode extends RedisNode {
      * 当前节点是副本是谁
      */
     private String replicateOf;
-
     private HostAndPort masterNode;
-
     private long pingSentTimestamp;
-
     private long pongReceivedTimestamp;
-
     private long configEpoch;
-
     private boolean connected;
-
     private int slotNumber;
-
     private String slotRange;
-
 
     /**
      * Redis Cluster node flags.
@@ -66,82 +64,8 @@ public class RedisClusterNode extends RedisNode {
 
     }
 
-    public RedisClusterNode(){}
-
     public RedisClusterNode(String nodeId, HostAndPort node) {
         super(nodeId, node);
-    }
-
-    public Set<NodeFlag> getFlags() {
-        return flags;
-    }
-
-    public void setFlags(Set<NodeFlag> flags) {
-        this.flags = flags;
-    }
-
-    public String getReplicateOf() {
-        return replicateOf;
-    }
-
-    public void setReplicateOf(String replicateOf) {
-        this.replicateOf = replicateOf;
-    }
-
-    public HostAndPort getMasterNode() {
-        return masterNode;
-    }
-
-    public void setMasterNode(HostAndPort masterNode) {
-        this.masterNode = masterNode;
-    }
-
-    public long getPingSentTimestamp() {
-        return pingSentTimestamp;
-    }
-
-    public void setPingSentTimestamp(long pingSentTimestamp) {
-        this.pingSentTimestamp = pingSentTimestamp;
-    }
-
-    public long getPongReceivedTimestamp() {
-        return pongReceivedTimestamp;
-    }
-
-    public void setPongReceivedTimestamp(long pongReceivedTimestamp) {
-        this.pongReceivedTimestamp = pongReceivedTimestamp;
-    }
-
-    public long getConfigEpoch() {
-        return configEpoch;
-    }
-
-    public void setConfigEpoch(long configEpoch) {
-        this.configEpoch = configEpoch;
-    }
-
-    public boolean isConnected() {
-        return connected;
-    }
-
-    public void setConnected(boolean connected) {
-        this.connected = connected;
-    }
-
-    public int getSlotNumber() {
-        return slotNumber;
-    }
-
-    public void setSlotNumber(int slotNumber) {
-        this.slotNumber = slotNumber;
-    }
-
-    public String getSlotRange() {
-        return slotRange;
-    }
-
-    public void setSlotRange(String slotRange) {
-        this.slotRange = slotRange;
     }
 
 }

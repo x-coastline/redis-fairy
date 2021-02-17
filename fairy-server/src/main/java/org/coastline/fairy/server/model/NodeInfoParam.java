@@ -1,5 +1,9 @@
 package org.coastline.fairy.server.model;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -10,6 +14,9 @@ import java.util.List;
  * @author Jay.H.Zou
  * @date 2020/11/8
  */
+@Data
+@Builder
+@NoArgsConstructor
 public class NodeInfoParam {
 
     public static final int TIME_TYPE_MINUTE = 0;
@@ -37,9 +44,6 @@ public class NodeInfoParam {
 
     private List<String> nodeList;
 
-    public NodeInfoParam() {
-    }
-
     public NodeInfoParam(Integer clusterId) {
         this.clusterId = clusterId;
     }
@@ -52,70 +56,6 @@ public class NodeInfoParam {
     public NodeInfoParam(Integer clusterId, String node) {
         this.clusterId = clusterId;
         this.node = node;
-    }
-
-    public Integer getClusterId() {
-        return clusterId;
-    }
-
-    public void setClusterId(Integer clusterId) {
-        this.clusterId = clusterId;
-    }
-
-    public String getInfoItem() {
-        return infoItem;
-    }
-
-    public void setInfoItem(String infoItem) {
-        this.infoItem = infoItem;
-    }
-
-    public List<String> getInfoItemList() {
-        return infoItemList;
-    }
-
-    public void setInfoItemList(List<String> infoItemList) {
-        this.infoItemList = infoItemList;
-    }
-
-    public Integer getTimeType() {
-        return timeType;
-    }
-
-    public void setTimeType(Integer timeType) {
-        this.timeType = timeType;
-    }
-
-    public Timestamp getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
-
-    public Timestamp getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getNode() {
-        return node;
-    }
-
-    public void setNode(String node) {
-        this.node = node;
-    }
-
-    public List<String> getNodeList() {
-        return nodeList;
-    }
-
-    public void setNodeList(List<String> nodeList) {
-        this.nodeList = nodeList;
     }
 
     @Override

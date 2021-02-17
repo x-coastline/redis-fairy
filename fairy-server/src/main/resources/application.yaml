@@ -15,20 +15,11 @@ server.compression.min-response-size: 1024
 #==============================================================================
 # registry
 #==============================================================================
-# default none, 可以选择 zookeeper
-fairy.registry.model: none
-# 注册到 zookeeper
-fairy.registry.zookeeper.address: xxx
-fairy.registry.zookeeper.base-path: /fairy
-# 注册到 redis
-# fairy.registry.redis.address: 192.168.5.2:8000,192.168.5.3:8000
-# fairy.registry.redis.prefix-key: fairy
-
-# center list
-fairy.registry.center-list: xxx
-
-# worker list, split by ','
-fairy.registry.worker-list: xxx
+# default none, 单机版
+# agent, 通过 agent 收集，发送给 server 并存储
+fairy.model: none
+# 如果 model 是 `agent`, 则需要配置有哪些 host
+# fairy.agent.host: xxx,xxx,xxx
 
 #==============================================================================
 # authority

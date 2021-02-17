@@ -10,7 +10,7 @@ import org.coastline.fairy.common.TimeUtil;
 import org.coastline.fairy.server.dao.IClusterDao;
 import org.coastline.fairy.server.dao.INodeInfoDao;
 import org.coastline.fairy.server.dao.IRedisNodeDao;
-import org.coastline.fairy.server.entity.ClusterEntity;
+import org.coastline.fairy.server.entity.ClusterDO;
 import org.coastline.fairy.server.service.IClusterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,24 +66,24 @@ public class ClusterService implements IClusterService {
     }
 
     @Override
-    public List<ClusterEntity> getAllCluster() {
+    public List<ClusterDO> getAllCluster() {
         return clusterDao.selectAllCluster();
     }
 
     @Override
-    public ClusterEntity getClusterById(Integer clusterId) {
+    public ClusterDO getClusterById(Integer clusterId) {
         return clusterDao.selectClusterById(clusterId);
     }
 
     @Override
-    public List<ClusterEntity> getClusterByGroup(Integer groupId) {
+    public List<ClusterDO> getClusterByGroup(Integer groupId) {
         return clusterDao.selectClusterByGroup(groupId);
     }
 
     @Transactional
     @Override
-    public boolean addCluster(ClusterEntity cluster) {
-        ClusterEntity completedCluster = completeClusterInfo(cluster);
+    public boolean addCluster(ClusterDO cluster) {
+        ClusterDO completedCluster = completeClusterInfo(cluster);
         Timestamp currentTimestamp = TimeUtil.getCurrentTimestamp();
         completedCluster.setCreationTime(currentTimestamp);
         completedCluster.setUpdateTime(currentTimestamp);
@@ -95,20 +95,20 @@ public class ClusterService implements IClusterService {
     }
 
     @Override
-    public boolean updateCluster(ClusterEntity cluster) {
+    public boolean updateCluster(ClusterDO cluster) {
         clusterDao.updateCluster(cluster);
         return true;
     }
 
     @Override
-    public boolean updateClusterState(ClusterEntity cluster) {
-        ClusterEntity completedCluster = completeClusterInfo(cluster);
+    public boolean updateClusterState(ClusterDO cluster) {
+        ClusterDO completedCluster = completeClusterInfo(cluster);
         clusterDao.updateCluster(completedCluster);
         return true;
     }
 
     @Override
-    public boolean deleteClusterState(ClusterEntity cluster) {
+    public boolean deleteClusterState(ClusterDO cluster) {
         clusterDao.deleteCluster(cluster);
         Integer clusterId = cluster.getClusterId();
         nodeInfoDao.deleteNodeInfoIndex(clusterId);
@@ -118,15 +118,15 @@ public class ClusterService implements IClusterService {
     }
 
     @Override
-    public ClusterEntity completeClusterInfo(ClusterEntity cluster) {
+    public ClusterDO completeClusterInfo(ClusterDO cluster) {
         Integer clusterId = cluster.getClusterId();
         String clusterName = cluster.getClusterName();
         // reset cluster state
-        cluster.setState(ClusterEntity.State.HEALTH);
+        cluster.setState(ClusterDO.State.HEALTH);
         boolean fillBaseInfoResult = fillBaseInfo(cluster);
         if (!fillBaseInfoResult) {
             LOGGER.error("Fill base info failed, cluster id = {}, cluster name = {}", clusterId, clusterName);
-            cluster.setState(ClusterEntity.State.BAD);
+            cluster.setState(ClusterDO.State.BAD);
         }
         RedisMode redisMode = cluster.getRedisMode();
         boolean fillInfoResult = false;
@@ -144,12 +144,12 @@ public class ClusterService implements IClusterService {
         }
         if (!fillInfoResult) {
             LOGGER.error("Complete cluster info failed, cluster id = {}, cluster name = {}", clusterId, clusterName);
-            cluster.setState(ClusterEntity.State.BAD);
+            cluster.setState(ClusterDO.State.BAD);
         }
         return cluster;
     }
 
-    private boolean fillInfoForCluster(ClusterEntity cluster) {
+    private boolean fillInfoForCluster(ClusterDO cluster) {
         RedisClient redisClient = null;
         try {
             redisClient = RedisClientFactory.buildRedisClient(cluster.getSeed(), cluster.getRedisPassword());
@@ -168,7 +168,7 @@ public class ClusterService implements IClusterService {
         }
     }
 
-    private boolean fillInfoForStandalone(ClusterEntity cluster) {
+    private boolean fillInfoForStandalone(ClusterDO cluster) {
         /*IStandaloneRedisManageOperator standaloneRedisManageOperator = null;
         try {
             RedisClientConfig seedRedisClientConfig = new RedisClientConfig(cluster.getSeed(), cluster.getRedisPassword());
@@ -189,7 +189,7 @@ public class ClusterService implements IClusterService {
         return true;
     }
 
-    private boolean fillInfoForSentinel(ClusterEntity cluster) {
+    private boolean fillInfoForSentinel(ClusterDO cluster) {
         /*String[] nodes = StringUtil.splitByCommas(cluster.getSeed());
         int length = nodes.length;
         cluster.setState(ClusterEntity.ClusterState.HEALTH);
@@ -204,7 +204,7 @@ public class ClusterService implements IClusterService {
      *
      * @param cluster
      */
-    private boolean fillBaseInfo(ClusterEntity cluster) {
+    private boolean fillBaseInfo(ClusterDO cluster) {
         RedisClient redisClient = null;
         try {
             redisClient = RedisClientFactory.buildRedisClient(cluster.getSeed(), cluster.getRedisPassword());
@@ -223,8 +223,8 @@ public class ClusterService implements IClusterService {
         }
     }
 
-    private ClusterEntity.State calculateClusterState(ClusterInfo.ClusterState state) {
-        return ClusterInfo.ClusterState.OK.equals(state) ? ClusterEntity.State.HEALTH : ClusterEntity.State.BAD;
+    private ClusterDO.State calculateClusterState(ClusterInfo.ClusterState state) {
+        return ClusterInfo.ClusterState.OK.equals(state) ? ClusterDO.State.HEALTH : ClusterDO.State.BAD;
     }
 
 }
