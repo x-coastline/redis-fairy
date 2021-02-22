@@ -11,7 +11,7 @@ import java.util.List;
  * @author Jay.H.Zou
  * @date 2021/2/17
  */
-public class InfoCollector implements ICollector<List<RedisInfo>> {
+public class AgentInfoCollector implements ICollector<List<RedisInfo>> {
 
     @Override
     public boolean collect(List<RedisInfo> redisInfoList) {

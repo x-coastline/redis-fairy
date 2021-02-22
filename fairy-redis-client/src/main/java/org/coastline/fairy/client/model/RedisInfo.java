@@ -1,5 +1,6 @@
 package org.coastline.fairy.client.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class RedisInfo {
 
     public static final String SERVER = "server";

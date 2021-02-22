@@ -11,12 +11,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 集群信息收集
+ * 节点信息收集
  *
  * @author Jay.H.Zou
  * @date 2021/2/17
  */
-public class ClusterCollector implements ICollector<ClusterDO> , InitializingBean {
+public class DefaultNodeCollector implements ICollector<ClusterDO>, InitializingBean {
 
     private ExecutorService threadPool;
 
@@ -27,7 +27,7 @@ public class ClusterCollector implements ICollector<ClusterDO> , InitializingBea
         int maxSize = cupNumber * 4;
         threadPool = new ThreadPoolExecutor(core, maxSize, 1, TimeUnit.HOURS,
                 new ArrayBlockingQueue<>(1),
-                new ThreadFactoryBuilder().setNameFormat("collect-cluster-pool-thread-%d").build(),
+                new ThreadFactoryBuilder().setNameFormat("collect-node-pool-thread-%d").build(),
                 new ThreadPoolExecutor.AbortPolicy());
     }
 
@@ -40,4 +40,6 @@ public class ClusterCollector implements ICollector<ClusterDO> , InitializingBea
     public void clean() {
 
     }
+
+
 }

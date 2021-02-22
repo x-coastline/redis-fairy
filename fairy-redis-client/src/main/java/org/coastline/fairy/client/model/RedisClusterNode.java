@@ -1,6 +1,7 @@
 package org.coastline.fairy.client.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,8 @@ import java.util.Set;
  * @date 2020/10/14
  */
 @Data
-@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class RedisClusterNode extends RedisNode {
 
     private Set<NodeFlag> flags;

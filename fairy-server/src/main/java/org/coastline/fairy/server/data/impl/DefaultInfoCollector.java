@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author Jay.H.Zou
  * @date 2021/2/17
  */
-public class NodeCollector implements ICollector<ClusterDO>, InitializingBean {
+public class DefaultInfoCollector implements ICollector<ClusterDO>, InitializingBean {
 
     private ExecutorService threadPool;
 

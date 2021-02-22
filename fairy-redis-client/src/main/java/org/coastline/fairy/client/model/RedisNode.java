@@ -1,5 +1,6 @@
 package org.coastline.fairy.client.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import redis.clients.jedis.HostAndPort;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class RedisNode {
 
     private String nodeId;

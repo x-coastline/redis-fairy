@@ -1,5 +1,6 @@
 package org.coastline.fairy.server.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,8 @@ import org.coastline.fairy.client.model.RedisNode;
  * @date 2020/11/8
  */
 @Data
-@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class RedisNodeDO extends RedisNode {
 
     /**

@@ -1,5 +1,6 @@
 package org.coastline.fairy.server.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.Objects;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Configuration
 public class SystemConfig implements InitializingBean {
 
