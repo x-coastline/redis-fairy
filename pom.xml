@@ -36,7 +36,7 @@
 		<page-helper.version>1.3.0</page-helper.version>
 
 		<!--mysql-->
-		<mysql-connector.version>8.0.17</mysql-connector.version>
+		<mysql-connector.version>8.0.28</mysql-connector.version>
 		<mybatis-spring.version>2.1.3</mybatis-spring.version>
 	</properties>
 
